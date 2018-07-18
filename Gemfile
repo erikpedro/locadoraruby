@@ -61,8 +61,8 @@ end
 
 
 group :production do
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3' 
+# Use pg as the database for Active Record
+gem 'pg' 
 end
 
 

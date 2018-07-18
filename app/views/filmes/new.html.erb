@@ -4,6 +4,9 @@
 <%if flash[:notice] %>
 <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
 <% end %>
+
+
+
 <%=  form_for @filme  do |f| %>
     <div class="form-group">
             <%= f.label :nome %>
@@ -18,7 +21,7 @@
     <div class="form-inline">
         <div class="form-group">    
             <%= f.label :preco %>
-            <%= f.number_field :preco, class: "form-control" %>
+            <%= f.number_field :preco, :step => 0.01, :min => 0.01, class: "form-control" %>
         </div>
 
      <div class="form-group">    
@@ -26,21 +29,17 @@
             <%= f.collection_select :genero_id, @generos, :id, :nome, {}, class: "form-control" %>
     </div>
 
-
+            <div class="form-group">
+             <%= f.label "Cadastros" %>
             <%= f.submit "Cadastrar Filme", class: "btn btn-primary" %>
+            <%= link_to 'Novo Genero', new_genero_path, class: "btn btn-warning" %>
+            </div>
     </div>
 <% end %>
 <br/>
 
-<div class="form-group">
-    <table class="table table-bordered" >
-            <thead>
-                <tr>
-               <th> <h1>Lista de Filmes</h1> </th>
-                </tr>
-            </thead>
-    </table>
-</div>
+
+
 
 <table class="table table-bordered" >
             <thead>
@@ -63,6 +62,9 @@
                             method: :delete, class: "btn btn-danger", 
                                 data: {confirm: "Tem certeza que deseja Remover #{filme.nome}?" }%>
                     </td>
+
+                   
+
                     <td>
                         <%= link_to  "Alterar", edit_filme_path(filme), class: "btn btn-primary"%>
                     </td>
@@ -70,5 +72,3 @@
                 <% end %>
             </tbody>
         </table>
-
-<%= link_to  "Lista de Filmes", root_path %>

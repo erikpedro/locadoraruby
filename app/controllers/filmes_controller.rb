@@ -1,13 +1,13 @@
 class FilmesController < ApplicationController
 
     def index
-       @filmes = Filme.order( :nome ).limit 10
-       
+       #@filmes = Filme.order( :nome ).limit 10
+         @filmes = Filme.joins(:genero)
     end
 
     def new
         @filme = Filme.new 
-        @segunda_lista = Filme.order :nome 
+        @segunda_lista = Filme.joins(:genero) 
         @generos = Genero.all
      end
 
@@ -20,7 +20,7 @@ class FilmesController < ApplicationController
      def edit
         id = params[:id]
         @filme = Filme.find(id)
-        @segunda_lista = Filme.order :nome
+        @segunda_lista = Filme.joins(:genero)
         @generos = Genero.all
          render :new
      end
@@ -41,7 +41,7 @@ class FilmesController < ApplicationController
     def create
         valores = params.require(:filme).permit :nome, :descricao, :preco, :genero_id
         @filme = Filme.new valores
-        @segunda_lista = Filme.order :nome
+        @segunda_lista = Filme.joins(:genero)
 
        if @filme.save
         flash[:notice] = "Cadastrado com sucesso"

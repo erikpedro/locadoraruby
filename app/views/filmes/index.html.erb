@@ -1,0 +1,14 @@
+        <%= link_to  "Adiminstrador", new_filme_path %>
+        
+        <table class="table table-bordered" >
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= render  @filmes %>
+            </tbody>
+        </table>

@@ -1,0 +1,74 @@
+<% @filme.errors.full_messages.each do |message| %>
+<div class="alert alert-danger" role="alert"><%= message %></div>
+<% end %>
+<%if flash[:notice] %>
+<div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+<% end %>
+<%=  form_for @filme  do |f| %>
+    <div class="form-group">
+            <%= f.label :nome %>
+            <%= f.text_field :nome, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :descricao %>
+            <%= f.text_area :descricao, class: "form-control" %>
+    </div>    
+
+    <div class="form-inline">
+        <div class="form-group">    
+            <%= f.label :preco %>
+            <%= f.number_field :preco, class: "form-control" %>
+        </div>
+
+     <div class="form-group">    
+            <%= f.label :genero %>
+            <%= f.collection_select :genero_id, @generos, :id, :nome, {}, class: "form-control" %>
+    </div>
+
+
+            <%= f.submit "Cadastrar Filme", class: "btn btn-primary" %>
+    </div>
+<% end %>
+<br/>
+
+<div class="form-group">
+    <table class="table table-bordered" >
+            <thead>
+                <tr>
+               <th> <h1>Lista de Filmes</h1> </th>
+                </tr>
+            </thead>
+    </table>
+</div>
+
+<table class="table table-bordered" >
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @segunda_lista.each do |filme| %>
+                <tr>
+                    <td><%= filme.nome  %></td>
+                    <td><%= filme.descricao  %></td>
+                    <td><%= filme.preco  %></td>
+                    <td>
+                        <%= button_to  "Remover", filme, 
+                            method: :delete, class: "btn btn-danger", 
+                                data: {confirm: "Tem certeza que deseja Remover #{filme.nome}?" }%>
+                    </td>
+                    <td>
+                        <%= link_to  "Alterar", edit_filme_path(filme), class: "btn btn-primary"%>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+<%= link_to  "Lista de Filmes", root_path %>
